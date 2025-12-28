@@ -1,0 +1,7 @@
+version: 3
+tasks:
+  build_c_lib:
+    dir: "native"
+    cmds:
+      - gcc -c my_func.c -o my_func.o
+      - ar rcs native/libmy_func.a my_func.o
