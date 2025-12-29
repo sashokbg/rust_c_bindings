@@ -25,6 +25,7 @@ fn main() {
     }
 
     // Make the prebuilt static library discoverable by rustc.
+    println!("cargo:rustc-link-lib=my_func");
     println!("cargo:rustc-link-search=native=./native");
 
     // Link against system libudev.

@@ -6,7 +6,6 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
 // SAFETY: The function declarations given below are in
 // line with the header files of `my_c_library`.
-#[link(name = "my_func")]
 unsafe extern "C" {
     fn my_func(x: i32, y: i32) -> i32;
     fn qt_show_window() -> i32;
