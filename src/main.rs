@@ -9,6 +9,8 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 unsafe extern "C" {
     fn my_func(x: i32, y: i32) -> i32;
     fn qt_show_window() -> i32;
+    fn kscreen_list_screens() -> *const libc::c_char;
+    fn kscreen_free_string(ptr: *const libc::c_char);
 }
 
 fn main() {
@@ -17,9 +19,21 @@ fn main() {
         if let Err(err) = list_block_devices() {
             eprintln!("Failed to list block devices: {err}");
         }
-        let rc = qt_show_window();
-        println!("Qt exited with code {rc}");
+        // let rc = qt_show_window();
+        // println!("Qt exited with code {rc}");
+        print_screens()
     }
+
+}
+unsafe fn print_screens() {
+    let ptr = kscreen_list_screens();
+    if ptr.is_null() {
+        eprintln!("kscreen_list_screens returned null");
+        return;
+    }
+    let names = CStr::from_ptr(ptr).to_string_lossy();
+    println!("Screens:\n{names}");
+    kscreen_free_string(ptr);
 }
 
 /// Enumerate block devices via libudev and print their device nodes.

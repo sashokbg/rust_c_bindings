@@ -1,2 +1,5 @@
+.idea
 /target
 native/libmy_func.a
+doctor.cpp
+my_func.o
