@@ -9,6 +9,7 @@ include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 #[link(name = "my_func")]
 unsafe extern "C" {
     fn my_func(x: i32, y: i32) -> i32;
+    fn qt_show_window() -> i32;
 }
 
 fn main() {
@@ -17,6 +18,8 @@ fn main() {
         if let Err(err) = list_block_devices() {
             eprintln!("Failed to list block devices: {err}");
         }
+        let rc = qt_show_window();
+        println!("Qt exited with code {rc}");
     }
 }
 
